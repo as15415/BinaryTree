@@ -13,6 +13,7 @@ public class LinkedBinaryTree<T> {
 	}
 
 	public void setRoot(BinaryTreeNode<T> root) {
+		root.setParent(null);
 		this.root = root;
 	}
 
@@ -40,7 +41,7 @@ public class LinkedBinaryTree<T> {
 		return node.getParent() == null;
 	}
 	
-	public int height(BinaryTreeNode<T> node) {
+	public int edgeHeight(BinaryTreeNode<T> node) {
 		// added in case either left or right child is null, avoiding NullPointerException
 		if(node == null)
 			return 0;
@@ -48,7 +49,14 @@ public class LinkedBinaryTree<T> {
 		if(this.isExternal(node))
 			return 0;
 		
-		return 1 + Math.max(height(node.getLeftChild()), height(node.getRightChild()));
+		return 1 + Math.max(edgeHeight(node.getLeftChild()), edgeHeight(node.getRightChild()));
+	}
+	
+	public int nodeHeight(BinaryTreeNode<T> node) {
+		if(node == null)
+			return 0;
+		
+		return 1 + Math.max(nodeHeight(node.getLeftChild()), nodeHeight(node.getRightChild()));
 	}
 	
 	public void preOrder(BinaryTreeNode<T> node) {
